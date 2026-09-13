@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Meus Passeios por Portugal</title>
+    
+    <!-- CSS do Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com" />
+    
+    <style>
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        #map { height: 100vh; width: 100vw; } /* Mapa ocupa o ecrã inteiro */
+        .popup-titulo { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <!-- Onde o mapa vai ser desenhado -->
+    <div id="map"></div>
+
+    <!-- Script do Leaflet -->
+    <script src="https://unpkg.com"></script>
+    
+    <script>
+        // 1. Inicializa o mapa focado no centro de Portugal
+        var map = L.map('map').setView([39.5, -8.0], 7);
+
+        // 2. Adiciona o mapa de fundo (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 3. Os teus passeios (Lista de Cidades)
+        // Para adicionar mais cidades, basta copiares uma linha e mudar as coordenadas e o texto!
+        var passeios = [
+            {
+                nome: "Évora",
+                coordenadas: [38.5714, -7.9135],
+                detalhes: "<div class='popup-titulo'>Évora</div>Visita ao Templo Romano e almoço fantástico. Registo em Setembro de 2026."
+            },
+            {
+                nome: "Lisboa",
+                coordenadas: [38.7223, -9.1393],
+                detalhes: "<div class='popup-titulo'>Lisboa</div>Passeio por Alfama e pastéis de Belém."
+            },
+            {
+                nome: "Porto",
+                coordenadas: [41.1579, -8.6291],
+                detalhes: "<div class='popup-titulo'>Porto</div>Caminhada pela Ribeira e travessia da Ponte D. Luís."
+            }
+        ];
+
+        // 4. Desenha os marcadores no mapa automaticamente
+        passeios.forEach(function(local) {
+            L.marker(local.coordenadas)
+                .addTo(map)
+                .bindPopup(local.detalhes);
+        });
+    </script>
+</body>
+</html>
